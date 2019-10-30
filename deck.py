@@ -15,5 +15,9 @@ class Deck():
     def shuffle(self):
         random.shuffle(self.cards)
 
-    
-    
+    def deal(self, player):
+        return self.cards.pop()
+
+    def reset(self):
+        self.cards = self.create_deck()
+        self.shuffle()
