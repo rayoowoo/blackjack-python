@@ -5,10 +5,10 @@ class Player():
     def __init__(self):
         self.hand = Hand()
         self.chips = {
-            "one": [Chip(1), Chip(1), Chip(1), Chip(1), Chip(1)],
-            "five": [Chip(5), Chip(5), Chip(5), Chip(5), Chip(5)],
-            "ten": [Chip(10)],
-            "twenty": [Chip(20)]
+            1: [Chip(1), Chip(1), Chip(1), Chip(1), Chip(1)],
+            5: [Chip(5), Chip(5), Chip(5), Chip(5), Chip(5)],
+            10: [Chip(10)],
+            20: [Chip(20)]
         }
 
     def receive(self, card):
@@ -25,7 +25,30 @@ class Player():
         list_of_chips = list(map(lambda chip: chip.value, list_of_chips))
         print(list_of_chips)
 
-        return {"one": len(self.chips["one"]), "five": len(self.chips["five"]), "ten": len(self.chips["ten"]), "twenty": len(self.chips["twenty"])}
+        return {1: len(self.chips[1]), 5: len(self.chips[5]), 10: len(self.chips[10]), 20: len(self.chips[20])}
+
+    def turn(self, deck):
+        done = False
+        print("Player's turn")
+
+        while done == False:
+            print(f'Your hand: {self.hand}')
+            action = input("Hit or stand? (h / s) \n>> ")
+            if action is "h":
+                self.receive(deck.deal())
+                if self.points() > 21:
+                    done = True
+                    print(f'Your hand: {self.hand}')
+                    print(f"You have busted with {self.points()} points.")
+                    return True
+            elif action is "s":
+                print(f"You have decided to stand. You have {self.points()} points.")
+                done = True
+            else:
+                print("Invalid input. Try again.")
+        
+        print("")
+        return False
 
 # hi = Player()
 # print(hi.all_chips())

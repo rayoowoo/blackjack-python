@@ -1,18 +1,19 @@
 from player import Player
+from dealer import Dealer
 from deck import Deck
 
 class BlackjackGame():
     def __init__(self):
         self.deck = Deck()
-        self.dealer = Player()
+        self.dealer = Dealer()
         self.player = Player()
-        self.pot = []
         self.bet = {
-            "one": 0,
-            "five": 0,
-            "ten": 0,
-            "twenty": 0
+            1: 0,
+            5: 0,
+            10: 0,
+            20: 0
         }
+        self.play_game()
         
     def deal(self):
         self.dealer.receive(self.deck.deal())
@@ -25,7 +26,7 @@ class BlackjackGame():
 
     # player places bet - done
     # deal - done
-    # player goes first. 
+    # player goes first. - done
         # can choose to receive another card, "hit", or "stand", and receive no cards. 
     # dealer goes second.
         # must hit until 17 or higher. then they must stand. 
@@ -41,10 +42,10 @@ class BlackjackGame():
         chips = self.player.all_chips()
         print("")
 
-        one_amt = chips['one']
-        five_amt = chips['five']
-        ten_amt = chips['ten']
-        twenty_amt = chips['twenty']
+        one_amt = chips[1]
+        five_amt = chips[5]
+        ten_amt = chips[10]
+        twenty_amt = chips[20]
 
         def valid_bet(chip, amt):
             bet = int(input(f"How many {chip.upper()} chips do you want to bet? (Up to {amt}) \n>> "))
@@ -60,35 +61,32 @@ class BlackjackGame():
         twenty_bet = valid_bet("twenty", twenty_amt)
 
         self.bet = {
-            "one": one_bet,
-            "five": five_bet,
-            "ten": ten_bet,
-            "twenty": twenty_bet
+            1: one_bet,
+            5: five_bet,
+            10: ten_bet,
+            20: twenty_bet
         }
 
         print(f"You have placed a bet of {one_bet} one chips, {five_bet} five chips, {ten_bet} ten chips, and {twenty_bet} twenty chips. \n")
 
-    def player_turn(self):
-        done = False
-
-        while done == False:
-            print(f'Your hand: {self.player.hand}')
-            action = input("Hit or stand? (h / s) \n>> ")
-            if action is "h":
-                self.player.receive(self.deck.deal())
-                if self.player.points() > 21:
-                    done = True
-                    print(f"You have busted with {self.player.points()} points.")
-            elif action is "s":
-                print(f"You have decided to stand. You have {self.player.points()} points.")
-                done = True
+    def one_round(self):
+        self.place_bet()
+        self.deal()
+        if self.player.turn(self.deck):
+            print("You lost!")
+        else:
+            if self.dealer.turn(self.deck):
+                print("You win!")
             else:
-                print("Invalid input. Try again.")
+                print(f"Player: {self.player.points()} points \nDealer: {self.dealer.points()} points")
+
+    def lose_bet(self):
+        for chip, amt in self.bet.items():
+            for _ in amt:
+                self.player.chips[chip].pop()
+    
+    def play_game(self):
+        self.one_round()
         
-        print("Turn over")
 
-
-game = BlackjackGame()
-game.place_bet()
-game.deal()
-game.player_turn()
+BlackjackGame()
