@@ -2,6 +2,7 @@ from player import Player
 from dealer import Dealer
 from deck import Deck
 from chip import Chip
+import time
 
 class BlackjackGame():
     def __init__(self):
