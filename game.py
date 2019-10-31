@@ -20,10 +20,11 @@ class BlackjackGame():
         self.dealer.receive(self.deck.deal())
         self.player.receive(self.deck.deal())
 
+    # TODO:
     # figure out game logic
 
-    # player places bet
-    # deal
+    # player places bet - done
+    # deal - done
     # player goes first. 
         # can choose to receive another card, "hit", or "stand", and receive no cards. 
     # dealer goes second.
@@ -38,6 +39,7 @@ class BlackjackGame():
     def place_bet(self):
         print("You have this many coins:")
         chips = self.player.all_chips()
+        print("")
 
         one_amt = chips['one']
         five_amt = chips['five']
@@ -64,9 +66,29 @@ class BlackjackGame():
             "twenty": twenty_bet
         }
 
-        print(f"You have placed a bet of {one_bet} one chips, {five_bet} five chips, {ten_bet} ten chips, and {twenty_bet} twenty chips.")
+        print(f"You have placed a bet of {one_bet} one chips, {five_bet} five chips, {ten_bet} ten chips, and {twenty_bet} twenty chips. \n")
 
+    def player_turn(self):
+        done = False
+
+        while done == False:
+            print(f'Your hand: {self.player.hand}')
+            action = input("Hit or stand? (h / s) \n>> ")
+            if action is "h":
+                self.player.receive(self.deck.deal())
+                if self.player.points() > 21:
+                    done = True
+                    print(f"You have busted with {self.player.points()} points.")
+            elif action is "s":
+                print(f"You have decided to stand. You have {self.player.points()} points.")
+                done = True
+            else:
+                print("Invalid input. Try again.")
+        
+        print("Turn over")
 
 
 game = BlackjackGame()
 game.place_bet()
+game.deal()
+game.player_turn()

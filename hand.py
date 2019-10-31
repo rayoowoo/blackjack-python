@@ -9,6 +9,9 @@ class Hand():
         self.cards.append(card)
         self.points = self.value()
 
+    def __str__(self):
+        return f'{list(map(lambda card: card.value, self.cards))}'
+
     def value(self):
         sum = 0
         aces = 0

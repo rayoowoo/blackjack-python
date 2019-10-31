@@ -27,5 +27,5 @@ class Player():
 
         return {"one": len(self.chips["one"]), "five": len(self.chips["five"]), "ten": len(self.chips["ten"]), "twenty": len(self.chips["twenty"])}
 
-hi = Player()
-print(hi.all_chips())
+# hi = Player()
+# print(hi.all_chips())
