@@ -5,3 +5,7 @@ Currently it's only one player, and there's only hitting or standing as actions.
 
 Rules implemented are based on:
 https://www.instructables.com/id/How-to-Play-Blackjack-with-Betting/
+
+To play:
+1. Download the ZIP.
+2. Run 'python game.py' in terminal.
