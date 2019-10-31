@@ -72,6 +72,7 @@ class BlackjackGame():
         }
 
         print(f"You have placed a bet of {one_bet} one chips, {five_bet} five chips, {ten_bet} ten chips, and {twenty_bet} twenty chips. \n")
+        time.sleep(0.5)
 
     def one_round(self):
         self.place_bet()
@@ -79,13 +80,17 @@ class BlackjackGame():
         if self.player.turn(self.deck):
             print("You lost!")
             self.lose_bet()
+        elif self.dealer.turn(self.deck):
+            print("You win!")
+            self.win_bet()
         else:
-            if self.dealer.turn(self.deck):
+            print(f"Player: {self.player.points()} points \nDealer: {self.dealer.points()} points")
+            if self.player.points() < self.dealer.points():
+                print("you lost!")
+                self.lose_bet()
+            else:
                 print("You win!")
                 self.win_bet()
-            else:
-                print(f"Player: {self.player.points()} points \nDealer: {self.dealer.points()} points")
-
 
     def lose_bet(self):
         for chip, amt in self.bet.items():
