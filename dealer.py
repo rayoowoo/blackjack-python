@@ -9,7 +9,7 @@ class Dealer(Player):
 
         while first or self.points() < 17:
             first = False
-            print(f"Dealer's hand: {self.hand}")
+            print(f"Dealer's hand: {self.hand} \nDealder's points: {self.points()}")
             time.sleep(2)
             self.receive(deck.deal())
         

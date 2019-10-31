@@ -1,6 +1,7 @@
 from player import Player
 from dealer import Dealer
 from deck import Deck
+from chip import Chip
 
 class BlackjackGame():
     def __init__(self):
@@ -48,6 +49,9 @@ class BlackjackGame():
         twenty_amt = chips[20]
 
         def valid_bet(chip, amt):
+            if amt == 0:
+                return 0
+                
             bet = int(input(f"How many {chip.upper()} chips do you want to bet? (Up to {amt}) \n>> "))
             while bet > amt or bet < 0:
                 print(f"You don't have enough {chip.upper()} chips.")
@@ -74,19 +78,43 @@ class BlackjackGame():
         self.deal()
         if self.player.turn(self.deck):
             print("You lost!")
+            self.lose_bet()
         else:
             if self.dealer.turn(self.deck):
                 print("You win!")
+                self.win_bet()
             else:
                 print(f"Player: {self.player.points()} points \nDealer: {self.dealer.points()} points")
 
+
     def lose_bet(self):
         for chip, amt in self.bet.items():
-            for _ in amt:
+            for _ in range(amt):
                 self.player.chips[chip].pop()
+
+    def win_bet(self):
+        for chip, amt in self.bet.items():
+            for _ in range(amt):
+                self.player.chips[chip].append(Chip(chip))
+
+    def reset(self):
+        self.bet = {
+            1: 0,
+            5: 0,
+            10: 0,
+            20: 0
+        }
+        self.player.reset()
+        self.dealer.reset()
     
     def play_game(self):
         self.one_round()
-        
+        while self.player.valid():
+            if input("Do you still want to play? (y / n) \n>> ") == "y":
+                self.reset()
+                self.one_round()
+            else:
+                break
+        print("Thanks for playing")
 
 BlackjackGame()

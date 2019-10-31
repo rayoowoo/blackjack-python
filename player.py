@@ -11,6 +11,12 @@ class Player():
             20: [Chip(20)]
         }
 
+    def valid(self):
+        for amt in self.chips.values():
+            if len(amt) > 0:
+                return True
+        return False
+
     def receive(self, card):
         self.hand.receive_card(card)
 
@@ -32,7 +38,7 @@ class Player():
         print("Player's turn")
 
         while done == False:
-            print(f'Your hand: {self.hand}')
+            print(f'Your hand: {self.hand} \nYour points: {self.points()}')
             action = input("Hit or stand? (h / s) \n>> ")
             if action is "h":
                 self.receive(deck.deal())
@@ -49,6 +55,9 @@ class Player():
         
         print("")
         return False
+
+    def reset(self):
+        self.hand = Hand()
 
 # hi = Player()
 # print(hi.all_chips())
