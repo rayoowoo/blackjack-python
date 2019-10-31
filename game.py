@@ -11,8 +11,7 @@ class BlackjackGame():
         self.bet = {
             1: 0,
             5: 0,
-            10: 0,
-            20: 0
+            25: 0
         }
         self.play_game()
         
@@ -45,8 +44,7 @@ class BlackjackGame():
 
         one_amt = chips[1]
         five_amt = chips[5]
-        ten_amt = chips[10]
-        twenty_amt = chips[20]
+        twenty_five_amt = chips[25]
 
         def valid_bet(chip, amt):
             if amt == 0:
@@ -61,17 +59,15 @@ class BlackjackGame():
 
         one_bet = valid_bet("one", one_amt)
         five_bet = valid_bet("five", five_amt)
-        ten_bet = valid_bet("ten", ten_amt)
-        twenty_bet = valid_bet("twenty", twenty_amt)
+        twenty_five_bet = valid_bet("twenty-five", twenty_five_amt)
 
         self.bet = {
             1: one_bet,
             5: five_bet,
-            10: ten_bet,
-            20: twenty_bet
+            20: twenty_five_bet
         }
 
-        print(f"You have placed a bet of {one_bet} one chips, {five_bet} five chips, {ten_bet} ten chips, and {twenty_bet} twenty chips. \n")
+        print(f"You have placed a bet of {one_bet} one chips, {five_bet} five chips, and {twenty_five_bet} twenty-five chips. \n")
         time.sleep(0.5)
 
     def one_round(self):
@@ -106,8 +102,7 @@ class BlackjackGame():
         self.bet = {
             1: 0,
             5: 0,
-            10: 0,
-            20: 0
+            25: 0
         }
         self.player.reset()
         self.dealer.reset()

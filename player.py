@@ -7,8 +7,7 @@ class Player():
         self.chips = {
             1: [Chip(1), Chip(1), Chip(1), Chip(1), Chip(1)],
             5: [Chip(5), Chip(5), Chip(5), Chip(5), Chip(5)],
-            10: [Chip(10)],
-            20: [Chip(20)]
+            25: [Chip(25)]
         }
 
     def valid(self):
@@ -31,7 +30,7 @@ class Player():
         list_of_chips = list(map(lambda chip: chip.value, list_of_chips))
         print(list_of_chips)
 
-        return {1: len(self.chips[1]), 5: len(self.chips[5]), 10: len(self.chips[10]), 20: len(self.chips[20])}
+        return {1: len(self.chips[1]), 5: len(self.chips[5]), 25: len(self.chips[25])}
 
     def turn(self, deck):
         done = False
