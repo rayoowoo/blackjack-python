@@ -8,7 +8,10 @@ class BlackjackGame():
         self.player = Player()
         self.pot = []
         self.bet = {
-
+            "one": 0,
+            "five": 0,
+            "ten": 0,
+            "twenty": 0
         }
         
     def deal(self):
@@ -53,6 +56,15 @@ class BlackjackGame():
         five_bet = valid_bet("five", five_amt)
         ten_bet = valid_bet("ten", ten_amt)
         twenty_bet = valid_bet("twenty", twenty_amt)
+
+        self.bet = {
+            "one": one_bet,
+            "five": five_bet,
+            "ten": ten_bet,
+            "twenty": twenty_bet
+        }
+
+        print(f"You have placed a bet of {one_bet} one chips, {five_bet} five chips, {ten_bet} ten chips, and {twenty_bet} twenty chips.")
 
 
 
