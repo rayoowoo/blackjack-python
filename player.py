@@ -5,10 +5,10 @@ class Player():
     def __init__(self):
         self.hand = Hand()
         self.chips = {
-            1: [Chip(1), Chip(1), Chip(1), Chip(1), Chip(1)],
-            5: [Chip(5), Chip(5), Chip(5), Chip(5), Chip(5)],
-            10: [Chip(10)],
-            20: [Chip(20)]
+            "one": [Chip(1), Chip(1), Chip(1), Chip(1), Chip(1)],
+            "five": [Chip(5), Chip(5), Chip(5), Chip(5), Chip(5)],
+            "ten": [Chip(10)],
+            "twenty": [Chip(20)]
         }
 
     def receive(self, card):
@@ -22,7 +22,10 @@ class Player():
         for chip in self.chips.values():
             list_of_chips += chip
 
-        return list(map(lambda chip: chip.value, list_of_chips))
+        list_of_chips = list(map(lambda chip: chip.value, list_of_chips))
+        print(list_of_chips)
 
-# hi = Player()
-# print(hi.all_chips())
+        return {"one": len(self.chips["one"]), "five": len(self.chips["five"]), "ten": len(self.chips["ten"]), "twenty": len(self.chips["twenty"])}
+
+hi = Player()
+print(hi.all_chips())

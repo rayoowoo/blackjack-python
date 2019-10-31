@@ -7,6 +7,9 @@ class BlackjackGame():
         self.dealer = Player()
         self.player = Player()
         self.pot = []
+        self.bet = {
+
+        }
         
     def deal(self):
         self.dealer.receive(self.deck.deal())
@@ -29,6 +32,29 @@ class BlackjackGame():
 
     # the round keeps going until either the player loses all their money, or the player decides to quit. 
 
-    def place_bet(self, amount):
+    def place_bet(self):
         print("You have this many coins:")
-        print(coin.value for coin in self.player.coins)
+        chips = self.player.all_chips()
+
+        one_amt = chips['one']
+        five_amt = chips['five']
+        ten_amt = chips['ten']
+        twenty_amt = chips['twenty']
+
+        def valid_bet(chip, amt):
+            bet = int(input(f"How many {chip.upper()} chips do you want to bet? (Up to {amt}) \n>> "))
+            while bet > amt or bet < 0:
+                print(f"You don't have enough {chip.upper()} chips.")
+                bet = int(input(f"How many {chip.upper()} chips do you want to bet? (Up to {amt}) \n>> "))
+            
+            return bet
+
+        one_bet = valid_bet("one", one_amt)
+        five_bet = valid_bet("five", five_amt)
+        ten_bet = valid_bet("ten", ten_amt)
+        twenty_bet = valid_bet("twenty", twenty_amt)
+
+
+
+game = BlackjackGame()
+game.place_bet()
