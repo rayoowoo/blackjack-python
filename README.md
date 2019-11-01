@@ -3,10 +3,11 @@ This is simple blackjack game in the terminal, written using Python. It was an e
 
 Multiple players can play the game at once. You can also see each player's face-up cards. 
 
-Future implementations include seeing other players' face-up cards, and other blackjack actions (doubling down, splitting, insurance, and "soft 17").
+Future implementations include other blackjack actions (doubling down, splitting, insurance, and "soft 17").
 
 Rules implemented are based on:
 https://www.instructables.com/id/How-to-Play-Blackjack-with-Betting/
+https://www.businessinsider.com/blackjack-basics-2014-6
 
 To play:
 1. Download the ZIP.
