@@ -3,6 +3,10 @@ from dealer import Dealer
 from deck import Deck
 from chip import Chip
 import time
+import os
+
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
 
 class BlackjackGame():
     def __init__(self):
@@ -26,6 +30,16 @@ class BlackjackGame():
             self.points[player] = 0
       
     def deal(self):
+        cls()
+        print("Dealing.")
+        time.sleep(1)
+        cls()
+        print("Dealing..")
+        time.sleep(1)
+        cls()
+        print("Dealing...")
+        time.sleep(1)
+
         for _ in [1, 2]:
             self.dealer.receive(self.deck.deal())
             for player in self.players:
@@ -39,6 +53,9 @@ class BlackjackGame():
 
     # Figure out game logic for multiple people playing at once.
 
+    def display_face_up(self):
+        print(", ".join([f"{player.name}: {player.hand.cards[0].value}" for player in self.players]))
+
     def one_round(self):
         self.set_points()
         self.all_bets()
@@ -48,6 +65,8 @@ class BlackjackGame():
     def all_turns(self):
         for player in self.players:
             self.player_turn(player)
+        
+        cls()
         if max(self.points.values()) == -1:
             print("Everyone lost!")
         else:
@@ -78,6 +97,11 @@ class BlackjackGame():
             time.sleep(0.5)           
 
     def player_turn(self, player):
+        cls()
+        print("Face up cards")
+        self.display_face_up()
+        print("")
+
         if player.turn(self.deck):
             self.points[player] = -1
         else:
@@ -102,6 +126,7 @@ class BlackjackGame():
         self.players = players
     
     def play_game(self):
+        cls()
         self.one_round()
         self.play_again()
         while len(self.players) > 0:

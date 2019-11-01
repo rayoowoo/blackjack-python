@@ -15,13 +15,13 @@ class Dealer(Player):
     def turn(self, deck):
         print("Dealer's turn")
         time.sleep(2)
-        print(f"Dealer's hand: {self.hand} \nDealder's points: {self.points()}")
+        print(f"Dealer's hand: {self.hand} \nDealer's points: {self.points()}")
 
 
         while self.points() < 17:
             time.sleep(0.5)
             self.receive(deck.deal())
-            print(f"Dealer's hand: {self.hand} \nDealder's points: {self.points()}")
+            print(f"Dealer's hand: {self.hand} \nDealer's points: {self.points()}")
         
         if self.points() > 21:
             print(f"Dealer's hand: {self.hand}")
