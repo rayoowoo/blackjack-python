@@ -19,13 +19,12 @@ class BlackjackGame():
 
     def set_players(self):
         number = input("How many players (not including dealer)? \n>> ")
-        players =  [Player(i + 1) for i in range(int(number))]
-        for player in players:
-            self.points[player] = None
-        
-        return players
-
-        
+        return [Player(i + 1) for i in range(int(number))]
+    
+    def set_points(self):
+        for player in self.players:
+            self.points[player] = 0
+      
     def deal(self):
         for _ in [1, 2]:
             self.dealer.receive(self.deck.deal())
@@ -52,11 +51,15 @@ class BlackjackGame():
             
             return bet
 
-        one_bet = valid_bet("one", one_amt) + self.bet[1]
-        five_bet = valid_bet("five", five_amt) + self.bet[5]
-        twenty_five_bet = valid_bet("twenty-five", twenty_five_amt) + self.bet[25]
+        one = valid_bet("one", one_amt)
+        five = valid_bet("five", five_amt)
+        twenty_five = valid_bet("twenty_five", twenty_five_amt)
 
-        self.into_pot(player, one_amt, five_amt, twenty_five_amt)
+        one_bet = one + self.bet[1]
+        five_bet = five + self.bet[5]
+        twenty_five_bet = twenty_five + self.bet[25]
+
+        self.into_pot(player, one, five, twenty_five)
 
         self.bet = {
             1: one_bet,
@@ -72,16 +75,16 @@ class BlackjackGame():
             for _ in range(amt):
                 player.chips[chip].pop()
 
-    # TODO:
-    # Figure out game logic for multiple people playing at once.
     def all_bets(self):
         print("\nBETTING PHASE")
         for player in self.players:
             self.place_bet(player)
         print(f"The pot is now {self.bet[1]} one chips, {self.bet[5]} five chips, and {self.bet[25]} twenty-five chips. \n")
 
+    # Figure out game logic for multiple people playing at once.
 
     def one_round(self):
+        self.set_points()
         self.all_bets()
         self.deal()
         self.all_turns()
@@ -91,7 +94,10 @@ class BlackjackGame():
             self.player_turn(player)
 
     def player_turn(self, player):
-        pass
+        if player.turn(self.deck):
+            print(f"{player.name} has lost!")
+        else:
+            self.points[player] = player.points()
 
     # def player_turn(self, player):
     #     if player.turn(self.deck):
@@ -123,15 +129,23 @@ class BlackjackGame():
         for player in self.players:
             player.reset()
         self.dealer.reset()
+
+    def play_again(self):
+        players = []
+        for player in self.players:
+            if player.valid():
+                if input(f"{player.name}, do you still want to play? (y / n) \n>> ") == "y":
+                    players.append(player)
+        self.players = players
     
     def play_game(self):
         self.one_round()
+        self.play_again()
         while len(self.players) > 0:
-            if input("Do you still want to play? (y / n) \n>> ") == "y":
-                self.reset()
-                self.one_round()
-            else:
-                break
+            self.reset()
+            self.one_round()
+            self.play_again()
+
         print("Thanks for playing")
 
 BlackjackGame()

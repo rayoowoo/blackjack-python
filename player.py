@@ -1,5 +1,6 @@
 from chip import Chip
 from hand import Hand
+import random
 
 class Player():
     def __init__(self, number):
@@ -35,7 +36,7 @@ class Player():
 
     def turn(self, deck):
         done = False
-        print("Player's turn")
+        print(f"{self.name}'s turn")
 
         while done == False:
             print(f'Your hand: {self.hand} \nYour points: {self.points()}')
@@ -45,7 +46,7 @@ class Player():
                 if self.points() > 21:
                     done = True
                     print(f'Your hand: {self.hand}')
-                    print(f"You have busted with {self.points()} points.")
+                    print(f"You have busted with {self.points()} points!")
                     return True
             elif action is "s":
                 print(f"You have decided to stand. You have {self.points()} points.")
