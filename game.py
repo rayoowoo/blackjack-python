@@ -54,7 +54,7 @@ class BlackjackGame():
     # Figure out game logic for multiple people playing at once.
 
     def display_face_up(self):
-        print(", ".join([f"{player.name}: {player.hand.cards[0].value}" for player in self.players]))
+        print(", ".join([f"{player.name}: {player.hand.cards[0].value}" for player in self.players] + [f"Dealer: {self.dealer.hand.cards[0].value}"]))
 
     def one_round(self):
         self.set_points()
