@@ -2,7 +2,8 @@ from chip import Chip
 from hand import Hand
 
 class Player():
-    def __init__(self):
+    def __init__(self, number):
+        self.name = input(f"Player {number}, what is your name? \n>> ")
         self.hand = Hand()
         self.chips = {
             1: [Chip(1), Chip(1), Chip(1), Chip(1), Chip(1)],
